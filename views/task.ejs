@@ -1,0 +1,30 @@
+<% include partials/header %>
+<% var Titles = [["Important Today", "This Month", "This Year"], ["Nice Now", "This Month", "This Year"], ["Wishlist Now", "Soon", "Someday"]]; %>
+<% for (var i=0; i<3; i++) {  %>
+ <div class="row">
+
+<% for (var j=0; j<3; j++) { %> 	
+ <div class="col-lg-4 list">
+	<h1><%= Titles[i][j] %><i class="fa fa-plus" aria-hidden="true"></i></h1>
+	<div>
+	<input type="text" placeholder="Add New Task"> <span class = "importance hideMe"><%=i%></span>
+	        <span class = "urgency hideMe"><%=j%></span>
+	        </div>
+	<ul>
+	    <% tasks.forEach(function(task){ %>
+	        <% if (task.urgencylevel===j && task.importancelevel===i) { %>
+	        <li <% if (task.completed) { %> class="completed" <% } %> ><span class="X"><i class="fa fa-trash" aria-hidden="true"></i></span> <%= task.name %> 
+	        <span class="hideMe taskID"><%= task._id %></span></span></li>
+	 <% }  }); %>
+	</ul>
+</div>
+<% } %>
+
+</div>
+
+<% } %>
+
+
+
+
+<% include partials/footer %>
