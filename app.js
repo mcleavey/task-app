@@ -15,8 +15,12 @@ console.log("Server started");
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-// mongoose.connect("mongodb://localhost/taskApp");
-mongoose.connect("mongodb://zad:rimsky@ds111771.mlab.com:11771/taskapp")
+// if (process.env.DATABASEURL) {
+    mongoose.connect(process.env.DATABASEURL);
+// } else {
+// // mongoose.connect("mongodb://localhost/taskApp");
+// mongoose.connect("mongodb://zad:rimsky@ds111771.mlab.com:11771/taskapp")
+// }
 
 var taskSchema = new mongoose.Schema({
     name: String,
