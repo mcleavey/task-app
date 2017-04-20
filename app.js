@@ -16,6 +16,7 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // if (process.env.DATABASEURL) {
+console.log("Database is "+process.env.DATABASEURL);
     mongoose.connect(process.env.DATABASEURL);
 // } else {
 // // mongoose.connect("mongodb://localhost/taskApp");

@@ -56,5 +56,6 @@ $("ul").on("mouseover", "li", function(){
 })
 
 $(".fa-plus").click(function(){
-	$("input").slideToggle();
+	$(this).parent().parent().find("input").slideToggle();
 });
+
