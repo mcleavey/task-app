@@ -15,19 +15,21 @@ console.log("Server started");
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-// if (process.env.DATABASEURL) {
-console.log("Database is "+process.env.DATABASEURL);
+if (process.env.DATABASEURL) {
+    console.log("Database is "+process.env.DATABASEURL);
     mongoose.connect(process.env.DATABASEURL);
-// } else {
-// // mongoose.connect("mongodb://localhost/taskApp");
+} else {
+    console.log("Warning, no environment variable for database, using local version");
+    mongoose.connect("mongodb://localhost/taskApp");
 // mongoose.connect("mongodb://zad:rimsky@ds111771.mlab.com:11771/taskapp")
-// }
+}
 
 var taskSchema = new mongoose.Schema({
     name: String,
     completed: Boolean,
     importancelevel: Number,
-    urgencylevel: Number
+    urgencylevel: Number,
+    username: String
 })
 
 var Task = mongoose.model("Task", taskSchema);
@@ -52,7 +54,7 @@ app.get("/", function(req, res){
 
 app.post("/act", function(req, res) {
    if (req.body.action==="add") {
-      Task.create({name:req.body.name, completed: req.body.completed, importancelevel: req.body.importancelevel, urgencylevel: req.body.urgencylevel}, 
+      Task.create({name:req.body.name, completed: req.body.completed, importancelevel: req.body.importancelevel, urgencylevel: req.body.urgencylevel, username: req.body.username}, 
          function(err){
             console.log("Creating item in db:");
             if (err){

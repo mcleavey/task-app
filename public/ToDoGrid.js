@@ -40,7 +40,8 @@ $("input").keypress(function(event){
             name: $(this).val(),
             completed: false,
             importancelevel: $(this).parent().find(".importance").text(),
-            urgencylevel:  $(this).parent().find(".urgency").text()
+            urgencylevel:  $(this).parent().find(".urgency").text(),
+            username: "Christine"
             }).done(
             function(){
                 console.log("Finished add");
@@ -58,4 +59,3 @@ $("ul").on("mouseover", "li", function(){
 $(".fa-plus").click(function(){
 	$(this).parent().parent().find("input").slideToggle();
 });
-
