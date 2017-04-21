@@ -46,7 +46,10 @@ input {
 	box-sizing: border-box;   
 	color: #2980b9;
 	border: 3px solid rgba(0, 0, 0, 0);
-		display:none;
+}
+
+.newtask {
+	display: none;
 }
 
 ul {
@@ -64,7 +67,7 @@ input:focus{
 }
 
 
-li {
+.taskli {
 	margin: 0 auto;
 	padding: 0;
 	border: none;
@@ -88,15 +91,38 @@ li {
 	transition: 0.2s linear;
 }
 
-li:hover .X {
+.taskli:hover .X {
 	width: 40px;
 	opacity: 1;
 }
 
-li:nth-of-type(2n){
+.taskli:nth-of-type(2n){
 	background: #f7f7f7;
 }
 
 .hideMe {
 	display: none;
+}
+
+.auth-btn{
+	margin: 10px;
+}
+
+.logo{
+	width: 50%;
+}
+
+.login{
+	float: right;
+}
+
+.navbar-inverse{
+	background: rgba(0, 0, 0, 0);
+	border: none;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+    height: 100%;
+    font-size: 20px;
 }

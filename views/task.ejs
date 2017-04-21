@@ -7,15 +7,16 @@
  <div class="col-lg-4 list">
 	<h1><%= Titles[i][j] %><i class="fa fa-plus" aria-hidden="true"></i></h1>
 	<div>
-	<input type="text" placeholder="Add New Task"> <span class = "importance hideMe"><%=i%></span>
+	<input type="text" placeholder="Add New Task" class="newtask"> <span class = "importance hideMe"><%=i%></span>
 	        <span class = "urgency hideMe"><%=j%></span>
 	        </div>
-	<ul>
+	<ul class="task-ul">
 	    <% tasks.forEach(function(task){ %>
-	        <% if (task.urgencylevel===j && task.importancelevel===i && task.username ==="Christine" ) { %>
-	        <li <% if (task.completed) { %> class="completed" <% } %> ><span class="X"><i class="fa fa-trash" aria-hidden="true"></i></span> <%= task.name %> 
+	      <% if (user && task.username ===user.username || !user && task.username === "myTaskAppdemo")  { %>
+	        <% if (task.urgencylevel===j && task.importancelevel===i ) { %>
+	        <li class= "taskli <% if (task.completed) { %> completed <% } %>" ><span class="X"><i class="fa fa-trash" aria-hidden="true"></i></span> <%= task.name %> 
 	        <span class="hideMe taskID"><%= task._id %></span></span></li>
-	 <% }  }); %>
+	 <% }   }   }); %>
 	</ul>
 </div>
 <% } %>

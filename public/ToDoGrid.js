@@ -1,5 +1,5 @@
 // Delete task
-$("ul").on("click", ".X", function(event){
+$(".task-ul").on("click", ".X", function(event){
     console.log($(this).parent().text()+ " and ID: "+$(this).parent().find(".taskID").text());
     $.post("/act", {
        action: "delete",
@@ -18,7 +18,7 @@ $("ul").on("click", ".X", function(event){
 });
 
 // Mark completed (grey, strike-through)
-$("ul").on("click", "li", function(){
+$(".task-ul").on("click", "li", function(){
     var markComplete = !($(this).hasClass("completed"));
     console.log("Mark as complete? "+markComplete);
 	$(this).toggleClass("completed");
@@ -33,7 +33,7 @@ $("ul").on("click", "li", function(){
 // Add new task
 $("input").keypress(function(event){
 	if (event.which === 13) {
-		$(this).parent().parent().find("ul").append("<li><span class=\"X\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></span> "+$(this).val()+"</li>");
+		$(this).parent().parent().find("ul").append("<li class=\"taskli\"><span class=\"X\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></span> "+$(this).val()+"</li>");
 		console.log("About to call .post for add");
 		$.post("/act",  {
 		    action: "add",
