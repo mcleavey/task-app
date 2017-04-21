@@ -58,4 +58,5 @@ $("ul").on("mouseover", "li", function(){
 
 $(".fa-plus").click(function(){
 	$(this).parent().parent().find("input").slideToggle();
+	$(this).parent().parent().find("input").focus();
 });
