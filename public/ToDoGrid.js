@@ -1,5 +1,10 @@
+var congratsSound = new Howl({ src: ['/audio/bubbles.mp3'], volume: 0.05 });
+var soundOn = true;
+
+
 // Delete task
 $(".task-ul").on("click", ".X", function(event){
+    var lockReady = false;
     console.log($(this).parent().text()+ " and ID: "+$(this).parent().find(".taskID").text());
     $.post("/act", {
        action: "delete",
@@ -8,11 +13,20 @@ $(".task-ul").on("click", ".X", function(event){
        }).done(
             function(){
                 console.log("Finished delete");
+                if (lockReady) {
                 location.href = location.href;
+                } else {lockReady = true;}
         });
-
-	$(this).parent().fadeOut(500, function(){
-		$(this).remove();
+    if (soundOn) {congratsSound.play();}
+     	$("#Congrats").fadeIn(300, function(){
+     		$(this).fadeOut(1200);
+     	});
+	$(this).parent().fadeOut(1500, function(){
+	    if (lockReady) {
+	        location.href=location.href; } else {
+        		$(this).remove();
+        		lockReady = true;
+	        }
 	});
 	event.stopPropagation();
 });
@@ -28,6 +42,7 @@ $(".task-ul").on("click", "li", function(){
 	 id: $(this).find(".taskID").text()
     });
 });
+
 
 
 // Add new task
