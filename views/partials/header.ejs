@@ -15,27 +15,28 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
 </head>
 <body>
+		<% if (!user) { %>
+	<div class="introText"><h2>Welcome!</h2>Take a moment to prioritize your to-do list and long-term goals (it's all to easy to ignore things that are important long term, in favor of things that
+    	   		would be nice now!)<hr width="30%"> Currently, you're in demo mode.  If you'd like to save your own personal task list, please sign in.
+				<div class="signin-links">    	   		
+    	   		   	<a href="/login"><i class="fa fa-user" aria-hidden="true"></i>  Login</a>
+  	   				<a href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
+  	   			<% if (loginPage) { %>	<a href="/task"><i class="fa fa-tasks" aria-hidden="true"></i> Return to Tasks</a> <% } %>
+  	   			</div>
+  	   		</div>  <!-- introText --!>
+  	   		   <% } else { %>
 	<nav class="navbar navbar-inverse">
     <div class="container">
-    	<% if (!user) { %>
-    	   <ul class="nav navbar-nav navbar-left">
-    	   		<li><a href="/task">Welcome! You are in demo mode, please login to save your tasks.</a></li>
-    	   </ul>
-    	   <% } %>
     	   <ul class="nav navbar-nav navbar-right">
-    	   	<% if (user) { %>
     	   	<li><a>Hi <%=user.username%>! </a></li>
-    	   	<% } %>
-    	   	<% if (!user) { %> 
-    	   	<li><a href="/login"><i class="fa fa-user" aria-hidden="true"></i>  Login</a></li>
-  	   		<li><a href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a></li>
-  	   		<% } else { %>
+
   	   		<li><a href="/logout"><i class="fa fa-user" aria-hidden="true"></i>  Sign Out</a></li>
-  	   		<% } %>
+  	   	
   	   		</ul>
     
       </div>
   </div><!-- /.container-fluid -->
 </nav>
+	<% } %>
 
 

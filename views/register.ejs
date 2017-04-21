@@ -1,11 +1,16 @@
 <% include partials/header %>
-<div class="container">
-<h1>Sign Up Form</h1>
+
+<div class="login-container">
+    
+<h1>New User</h1>
 <form action="/register" method="POST">
     <input type="text" name="username" placeholder="username">
     <input type="password" name="password" placeholder = "password">
-<button class = "btn btn-primary btn-lg auth-btn">Submit</button>
+    <button class = "btn btn-primary btn-lg auth-btn">Submit</button>
 </form>
+<% if (registerFail) { %>
+<div class="LoginBoxWarning">Sorry, that username is taken, please choose another.</div>
+<% } %>
 </div>
 <% include partials/footer %>
 

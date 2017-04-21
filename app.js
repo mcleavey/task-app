@@ -7,6 +7,8 @@ var express = require("express"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
     passportLocalMongoose = require("passport-local-mongoose");
+    
+
 
 if (process.env.DATABASEURL) {
     console.log("Database is "+process.env.DATABASEURL);
@@ -61,7 +63,7 @@ var Task = mongoose.model("Task", taskSchema);
 //
 
 
-
+var loginTries = 0;
 
 
 app.get("/", function(req, res){
@@ -72,13 +74,14 @@ app.get("/", function(req, res){
 // app.get("/task", isLoggedIn, function(req, res){
 
 app.get("/task", function(req, res){
+    loginTries = 0;
     Task.find({}, function(err, tasks){
     console.log("Retrieve:");
     if (err){
         console.log(err);
     } else {
         console.log("Show new page");
-          res.render("task", {tasks: tasks, user: req.user});
+          res.render("task", {tasks: tasks, user: req.user, loginPage: false});
     }
  });
 });
@@ -142,35 +145,41 @@ app.post("/act", function(req, res) {
 
 
 app.get("/register", function(req, res){
-    res.render("register", {user: req.user});
+    loginTries = 0;
+    res.render("register", {user: req.user, registerFail: false, loginPage: true});
 });
 
 app.post("/register", function(req, res){
     User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
         if (err) {
             console.log("authentication error  "+err);
-            return res.render("register");
-        }
+            return res.render("register", {user: req.user, registerFail: true, loginPage: true});
+        } 
     passport.authenticate("local")(req, res, function() {
         res.redirect("/task");
-    })        
     });
+});
+
 });
 
 
 //  LOGIN
 
+
 app.get("/login",  function(req, res){
-    res.render("login", {user: req.uset});
+    console.log("Login tries: "+loginTries);
+    res.render("login", {user: req.user, loginFail: (loginTries>0), loginPage: true});
+    loginTries++;
 });
 
 app.post("/login", passport.authenticate("local", {
     successRedirect: "/task",
     failureRedirect: "/login"
-}), function (req, res){});
+    }), function (req, res){});
 
 
 app.get("/logout",  function(req, res) {
+    loginTries = 0;
     req.logout();
     res.redirect("/task");
 });
@@ -181,4 +190,3 @@ function isLoggedIn(req, res, next) {
     }
     res.redirect("/login");
 }
-
