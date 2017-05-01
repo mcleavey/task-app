@@ -135,6 +135,27 @@ app.post("/act", function(req, res) {
                 }
             });   // end of tast.findbyID
   }   // end of if (to determine which action)
+  else if (req.body.action==="move"){
+        // change completed status
+            Task.findById(req.body.id, function (err, task) {  
+    // Handle any possible database errors
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    task.importancelevel = req.body.importancelevel;
+                    task.urgencylevel = req.body.urgencylevel;
+                    // Save the updated document back to the database
+                    task.save(function (err, todo) {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            console.log("Success, now redirecting");
+                            res.send("Successfully moved");
+                        }
+                    });  // end of task.save
+                }
+            });   // end of tast.findbyID
+  }   // end of if (to determine which action)
   
 });   // end of app.post
     

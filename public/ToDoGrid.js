@@ -55,8 +55,7 @@ $("input").keypress(function(event){
             name: $(this).val(),
             completed: false,
             importancelevel: $(this).parent().find(".importance").text(),
-            urgencylevel:  $(this).parent().find(".urgency").text(),
-            username: "Christine"
+            urgencylevel:  $(this).parent().find(".urgency").text()
             }).done(
             function(){
                 console.log("Finished add");
@@ -75,3 +74,26 @@ $(".fa-plus").click(function(){
 	$(this).parent().parent().find("input").slideToggle();
 	$(this).parent().parent().find("input").focus();
 });
+
+  $( function() {
+    $( ".draggable" ).draggable({
+        revert: "invalid",
+        zIndex: 100
+    });
+    $( ".droppable" ).droppable({
+      drop: function( event, ui ) {
+        console.log("Dropped element. Event: "+event+" and ui "+ui.draggable.text());
+        $.post("/act",  {
+		    action: "move",
+            id: ui.draggable.find(".taskID").text(),
+            importancelevel: $(this).find(".importance").text(),
+            urgencylevel:  $(this).find(".urgency").text(),
+            }).done(
+            function(){
+                console.log("Finished move");
+                location.href = location.href;
+        });
+      }
+    });
+  });
+  
